@@ -215,12 +215,16 @@ class timeit:
         print(self.title + ' took ' + formatSI(time.time() - self.t0) + 's')
 
 
-def run(*awaitables: List[Awaitable]):
+def run(*awaitables: List[Awaitable], timeout=None):
     """
     By default run the event loop forever.
 
     When awaitables (like Tasks, Futures or coroutines) are given then
     run the event loop until each has completed and return their results.
+    
+    An optional timeout (in seconds) can be given that will raise
+    asyncio.TimeoutError if the awaitables are not ready within the
+    timeout period.
     """
     loop = asyncio.get_event_loop()
     if not awaitables:
@@ -238,6 +242,8 @@ def run(*awaitables: List[Awaitable]):
             future = awaitables[0]
         else:
             future = asyncio.gather(*awaitables)
+        if timeout:
+            future = asyncio.wait_for(future, timeout)
         result = syncAwait(future)
     return result
 
@@ -252,7 +258,8 @@ def schedule(time, callback, *args):
         dt = datetime.datetime.combine(datetime.date.today(), time)
     else:
         dt = time
-    delay = (dt - datetime.datetime.now()).total_seconds()
+    now = datetime.datetime.now(dt.tzinfo)
+    delay = (dt - now).total_seconds()
     loop.call_later(delay, callback, *args)
 
 
@@ -312,7 +319,7 @@ def patchAsyncio():
     Patch asyncio to use pure Python implementation of Future and Task,
     to deal with nested event loops in syncAwait.
     """
-    asyncio.Task = asyncio.tasks._CTask = asyncio.tasks.Task = \
+    Task = asyncio.Task = asyncio.tasks._CTask = asyncio.tasks.Task = \
             asyncio.tasks._PyTask
     asyncio.Future = asyncio.futures._CFuture = asyncio.futures.Future = \
             asyncio.futures._PyFuture
@@ -341,24 +348,30 @@ def syncAwait(future):
 
 
 def _syncAwaitAsyncio(future):
+    # https://bugs.python.org/issue22239
     assert asyncio.Task is asyncio.tasks._PyTask, \
             'To allow nested event loops, use util.patchAsyncio()'
     loop = asyncio.get_event_loop()
     preserved_ready = list(loop._ready)
     loop._ready.clear()
-    future = asyncio.ensure_future(future)
-    current_tasks = asyncio.Task._current_tasks
+    task = asyncio.ensure_future(future)
+    if task is not future:
+        task._log_destroy_pending = False
+    if sys.version_info >= (3, 7, 0):
+        current_tasks = asyncio.tasks._current_tasks
+    else:
+        current_tasks = asyncio.Task._current_tasks
     preserved_task = current_tasks.get(loop)
-    while not future.done():
+    while not task.done():
         loop._run_once()
         if loop._stopping:
             break
-    loop._ready.extendleft(preserved_ready)
+    loop._ready.extendleft(reversed(preserved_ready))
     if preserved_task is not None:
         current_tasks[loop] = preserved_task
     else:
         current_tasks.pop(loop, None)
-    return future.result()
+    return task.result()
 
 
 def _syncAwaitQt(future):
