@@ -22,45 +22,45 @@ __all__ = ['Client']
 class Client(EClient):
     """
     Modification of ``ibapi.client.EClient`` that uses asyncio.
-    
+
     The client is fully asynchronous and has its own
     event-driven networking code that replaces the
     networking code of the standard EClient.
     It also replaces the infinite loop of ``EClient.run()``
     with the asyncio event loop. It can be used as a drop-in
     replacement for the standard EClient as provided by IBAPI.
-    
+
     Compared to the standard EClient this client has the following
     additional features:
-    
+
     * ``client.connect()`` will block until the client is ready to
       serve requests; It is not necessary to wait for ``nextValidId``
       to start requests as the client has already done that.
       The reqId is directly available with :py:meth:`.getReqId()`.
-      
+
     * ``client.connectAsync()`` is a coroutine for connecting asynchronously.
-      
+
     * When blocking, ``client.connect()`` can be made to time out with
       the timeout parameter (default 2 seconds).
-    
+
     * Optional ``wrapper.priceSizeTick(reqId, tickType, price, size)`` that
       combines price and size instead of the two wrapper methods
       priceTick and sizeTick.
-      
+
     * Automatic request throttling.
-    
+
     * Optional ``wrapper.tcpDataArrived()`` method;
       If the wrapper has this method it is invoked directly after
       a network packet has arrived.
       A possible use is to timestamp all data in the packet with
       the exact same time.
-      
+
     * Optional ``wrapper.tcpDataProcessed()`` method;
       If the wrapper has this method it is invoked after the
       network packet's data has been handled.
       A possible use is to write or evaluate the newly arrived data in
       one batch instead of item by item.
-      
+
     * Events:
         * ``apiStart()``
         * ``apiEnd()``
@@ -141,15 +141,16 @@ class Client(EClient):
         """
         Connect to TWS/IBG at given host and port and with a clientId
         that is not in use elsewhere.
-        
+
         When timeout is not zero, asyncio.TimeoutError
-        is raised if the connection is not established within the timeout period.
+        is raised if the connection is not established
+        within the timeout period.
         """
         util.syncAwait(self.connectAsync(host, port, clientId, timeout))
 
     async def connectAsync(self, host, port, clientId, timeout=2):
         self._logger.info(
-                f'Connecting to {host}:{port} with clientId {clientId}...')
+            f'Connecting to {host}:{port} with clientId {clientId}...')
         self.host = host
         self.port = port
         self.clientId = clientId
@@ -191,7 +192,9 @@ class Client(EClient):
             if not self._isThrottling:
                 self._isThrottling = True
                 self._logger.warn('Started to throttle requests')
-            loop.call_at(times[0] + Client.RequestsInterval, self.sendMsg, None)
+            loop.call_at(
+                times[0] + Client.RequestsInterval,
+                self.sendMsg, None)
         else:
             if self._isThrottling:
                 self._isThrottling = False
@@ -205,9 +208,8 @@ class Client(EClient):
         self._logger.info('Connected')
         # start handshake
         msg = b'API\0'
-        msg += self._prefix(b'v%d..%d' % (
-                ibapi.server_versions.MIN_CLIENT_VER,
-                ibapi.server_versions.MAX_CLIENT_VER))
+        versionRange = (100, 142)
+        msg += self._prefix(b'v%d..%d' % versionRange)
         self.conn.sendMsg(msg)
         self.decoder = ibapi.decoder.Decoder(self.wrapper, None)
 
@@ -234,7 +236,8 @@ class Client(EClient):
             self._numMsgRecv += 1
 
             if debug:
-                self._logger.debug('<<< %s', ','.join(f.decode() for f in fields))
+                self._logger.debug(
+                    '<<< %s', ','.join(f.decode() for f in fields))
 
             if not self.serverVersion_ and len(fields) == 2:
                 # this concludes the handshake
@@ -250,7 +253,7 @@ class Client(EClient):
                 # decode and handle the message
                 try:
                     self._decode(fields)
-                except:
+                except Exception:
                     self._logger.exception('Decode failed')
 
         if self._tcpDataProcessed:
@@ -314,22 +317,26 @@ class Client(EClient):
         # bypass the ibapi decoder for ticks for more efficiency
         if msgId == 2:
             _, _, reqId, tickType, size = fields
-            self.wrapper.tickSize(int(reqId), int(tickType), int(size))
+            self.wrapper.tickSize(
+                    int(reqId), int(tickType), int(size))
             return
         elif msgId == 1:
             if self._priceSizeTick:
                 _, _, reqId, tickType, price, size, _ = fields
-                self._priceSizeTick(int(reqId), int(tickType),
+                self._priceSizeTick(
+                        int(reqId), int(tickType),
                         float(price), int(size))
                 return
         elif msgId == 12:
             _, _, reqId, position, operation, side, price, size = fields
-            self.wrapper.updateMktDepth(int(reqId), int(position),
+            self.wrapper.updateMktDepth(
+                    int(reqId), int(position),
                     int(operation), int(side), float(price), int(size))
             return
         elif msgId == 46:
             _, _, reqId, tickType, value = fields
-            self.wrapper.tickString(int(reqId), int(tickType), value.decode())
+            self.wrapper.tickString(
+                    int(reqId), int(tickType), value.decode())
             return
 
         # snoop for nextValidId and managedAccounts response,
@@ -374,7 +381,7 @@ class Connection:
     def connect(self):
         loop = asyncio.get_event_loop()
         coro = loop.create_connection(lambda: Socket(self),
-                self.host, self.port)
+                                      self.host, self.port)
         future = asyncio.ensure_future(coro)
         future.add_done_callback(self._onConnectionCreated)
         return future
