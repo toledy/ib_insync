@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Index &#8212; IB-insync 0.9.30 documentation</title>
+    <title>Index &#8212; IB-insync 0.9.34 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -128,7 +128,11 @@
       </ul></li>
       <li><a href="api.html#ib_insync.ib.IB.accountSummary">accountSummary() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.accountSummaryEvent">accountSummaryEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.AccountValue">AccountValue (class in ib_insync.objects)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.accountValueEvent">accountValueEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.accountValues">accountValues() (ib_insync.ib.IB method)</a>
 </li>
@@ -170,10 +174,10 @@
 </li>
       <li><a href="api.html#ib_insync.order.Order.algoParamsCount">algoParamsCount (ib_insync.order.Order attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.order.Order.algoStrategy">algoStrategy (ib_insync.order.Order attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.order.Order.algoStrategy">algoStrategy (ib_insync.order.Order attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.order.Order.allOrNone">allOrNone (ib_insync.order.Order attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.util.allowCtrlC">allowCtrlC() (in module ib_insync.util)</a>
@@ -260,6 +264,8 @@
 </li>
       <li><a href="api.html#ib_insync.objects.BarDataList.barSizeSetting">barSizeSetting (ib_insync.objects.BarDataList attribute)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.barUpdateEvent">barUpdateEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.order.Order.basisPoints">basisPoints (ib_insync.order.Order attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.basisPointsType">basisPointsType (ib_insync.order.Order attribute)</a>
@@ -332,11 +338,15 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.cancelOrder">cancelOrder() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.cancelOrderEvent">cancelOrderEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.ib.IB.cancelPnL">cancelPnL() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.cancelPnLSingle">cancelPnLSingle() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.cancelRealTimeBars">cancelRealTimeBars() (ib_insync.ib.IB method)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.cancelScannerSubscription">cancelScannerSubscription() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.cancelTickByTickData">cancelTickByTickData() (ib_insync.ib.IB method)</a>
 </li>
@@ -356,6 +366,8 @@
 </li>
       <li><a href="api.html#ib_insync.client.Client">Client (class in ib_insync.client)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.client">client (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.ibcontroller.Watchdog.clientId">clientId (ib_insync.ibcontroller.Watchdog attribute)</a>
 
       <ul>
@@ -371,7 +383,7 @@
       <li><a href="api.html#ib_insync.objects.BarData.close">close (ib_insync.objects.BarData attribute)</a>
 
       <ul>
-        <li><a href="api.html#ib_insync.objects.RealTimeBar.close">(ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.close">[1]</a>
+        <li><a href="api.html#ib_insync.objects.RealTimeBar.close">(ib_insync.objects.RealTimeBar attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.ticker.Ticker.close">(ib_insync.ticker.Ticker attribute)</a>
 </li>
@@ -398,12 +410,16 @@
 </li>
       <li><a href="api.html#ib_insync.objects.Fill.commissionReport">commissionReport (ib_insync.objects.Fill attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.order.Trade.commissionReportEvent">commissionReportEvent (ib_insync.order.Trade attribute)</a>
+      <li><a href="api.html#ib_insync.ib.IB.commissionReportEvent">commissionReportEvent (ib_insync.ib.IB attribute)</a>
+
+      <ul>
+        <li><a href="api.html#ib_insync.order.Trade.commissionReportEvent">(ib_insync.order.Trade attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.contract.Commodity">Commodity (class in ib_insync.contract)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.contract.Commodity">Commodity (class in ib_insync.contract)</a>
+</li>
       <li><a href="api.html#ib_insync.order.Order.conditions">conditions (ib_insync.order.Order attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.conditionsCancelOrder">conditionsCancelOrder (ib_insync.order.Order attribute)</a>
@@ -438,6 +454,8 @@
         <li><a href="api.html#ib_insync.ib.IB.connectAsync">(ib_insync.ib.IB method)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#ib_insync.ib.IB.connectedEvent">connectedEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.ConnectionStats">ConnectionStats (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.client.Client.connectionStats">connectionStats() (ib_insync.client.Client method)</a>
@@ -487,7 +505,7 @@
       <li><a href="api.html#ib_insync.objects.HistogramData.count">count (ib_insync.objects.HistogramData attribute)</a>
 
       <ul>
-        <li><a href="api.html#ib_insync.objects.RealTimeBar.count">(ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.count">[1]</a>
+        <li><a href="api.html#ib_insync.objects.RealTimeBar.count">(ib_insync.objects.RealTimeBar attribute)</a>
 </li>
       </ul></li>
       <li><a href="api.html#ib_insync.objects.ContractDetails.coupon">coupon (ib_insync.objects.ContractDetails attribute)</a>
@@ -587,7 +605,7 @@
 </li>
         <li><a href="api.html#ib_insync.objects.PnLSingle.defaults">(ib_insync.objects.PnLSingle attribute)</a>
 </li>
-        <li><a href="api.html#ib_insync.objects.RealTimeBar.defaults">(ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.defaults">[1]</a>
+        <li><a href="api.html#ib_insync.objects.RealTimeBar.defaults">(ib_insync.objects.RealTimeBar attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.objects.ScannerSubscription.defaults">(ib_insync.objects.ScannerSubscription attribute)</a>
 </li>
@@ -668,7 +686,11 @@
         <li><a href="api.html#ib_insync.ib.IB.disconnect">(ib_insync.ib.IB method)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#ib_insync.ib.IB.disconnectedEvent">disconnectedEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.order.Order.discretionaryAmt">discretionaryAmt (ib_insync.order.Order attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.order.Order.discretionaryUpToLimitPrice">discretionaryUpToLimitPrice (ib_insync.order.Order attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.SoftDollarTier.displayName">displayName (ib_insync.objects.SoftDollarTier attribute)</a>
 </li>
@@ -708,13 +730,15 @@
 </li>
       <li><a href="api.html#ib_insync.objects.BarDataList.endDateTime">endDateTime (ib_insync.objects.BarDataList attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar.endTime">endTime (ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.endTime">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar.endTime">endTime (ib_insync.objects.RealTimeBar attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.OrderState.equityWithLoanAfter">equityWithLoanAfter (ib_insync.objects.OrderState attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.OrderState.equityWithLoanBefore">equityWithLoanBefore (ib_insync.objects.OrderState attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.OrderState.equityWithLoanChange">equityWithLoanChange (ib_insync.objects.OrderState attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.errorEvent">errorEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.eTradeOnly">eTradeOnly (ib_insync.order.Order attribute)</a>
 </li>
@@ -728,6 +752,8 @@
         <li><a href="api.html#ib_insync.ibcontroller.Watchdog.events">(ib_insync.ibcontroller.Watchdog attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.objects.BarList.events">(ib_insync.objects.BarList attribute)</a>
+</li>
+        <li><a href="api.html#ib_insync.objects.ScanDataList.events">(ib_insync.objects.ScanDataList attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.order.Trade.events">(ib_insync.order.Trade attribute)</a>
 </li>
@@ -767,6 +793,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.objects.ScannerSubscription.excludeConvertible">excludeConvertible (ib_insync.objects.ScannerSubscription attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.execDetailsEvent">execDetailsEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.CommissionReport.execId">execId (ib_insync.objects.CommissionReport attribute)</a>
 
@@ -903,7 +931,7 @@
       <li><a href="api.html#ib_insync.objects.BarData.high">high (ib_insync.objects.BarData attribute)</a>
 
       <ul>
-        <li><a href="api.html#ib_insync.objects.RealTimeBar.high">(ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.high">[1]</a>
+        <li><a href="api.html#ib_insync.objects.RealTimeBar.high">(ib_insync.objects.RealTimeBar attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.ticker.Ticker.high">(ib_insync.ticker.Ticker attribute)</a>
 </li>
@@ -956,6 +984,8 @@
 </li>
       <li><a href="api.html#module-ib_insync.util">ib_insync.util (module)</a>
 </li>
+      <li><a href="api.html#ib_insync.util.ibapiVersionInfo">ibapiVersionInfo() (in module ib_insync.util)</a>
+</li>
       <li><a href="api.html#ib_insync.ibcontroller.IBC">IBC (class in ib_insync.ibcontroller)</a>
 </li>
       <li><a href="api.html#ib_insync.ibcontroller.IBController.IBC_INI">IBC_INI (ib_insync.ibcontroller.IBController attribute)</a>
@@ -970,10 +1000,10 @@
 </li>
       <li><a href="api.html#ib_insync.ibcontroller.IBC.ibcPath">ibcPath (ib_insync.ibcontroller.IBC attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.OptionComputation.impliedVol">impliedVol (ib_insync.objects.OptionComputation attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.objects.OptionComputation.impliedVol">impliedVol (ib_insync.objects.OptionComputation attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.order.OrderStatus.Inactive">Inactive (ib_insync.order.OrderStatus attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.contract.Contract.includeExpired">includeExpired (ib_insync.contract.Contract attribute)</a>
@@ -1095,7 +1125,7 @@
       <li><a href="api.html#ib_insync.objects.BarData.low">low (ib_insync.objects.BarData attribute)</a>
 
       <ul>
-        <li><a href="api.html#ib_insync.objects.RealTimeBar.low">(ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.low">[1]</a>
+        <li><a href="api.html#ib_insync.objects.RealTimeBar.low">(ib_insync.objects.RealTimeBar attribute)</a>
 </li>
         <li><a href="api.html#ib_insync.ticker.Ticker.low">(ib_insync.ticker.Ticker attribute)</a>
 </li>
@@ -1180,10 +1210,12 @@
 </li>
       <li><a href="api.html#ib_insync.objects.ScannerSubscription.maturityDateBelow">maturityDateBelow (ib_insync.objects.ScannerSubscription attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.OrderState.maxCommission">maxCommission (ib_insync.objects.OrderState attribute)</a>
+      <li><a href="api.html#ib_insync.client.Client.MaxClientVersion">MaxClientVersion (ib_insync.client.Client attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.objects.OrderState.maxCommission">maxCommission (ib_insync.objects.OrderState attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.client.Client.MaxRequests">MaxRequests (ib_insync.client.Client attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.ContractDetails.mdSizeMultiplier">mdSizeMultiplier (ib_insync.objects.ContractDetails attribute)</a>
@@ -1270,6 +1302,8 @@
       </ul></li>
       <li><a href="api.html#ib_insync.order.Order.nbboPriceCap">nbboPriceCap (ib_insync.order.Order attribute)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.newOrderEvent">newOrderEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.NewsArticle">NewsArticle (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.NewsBulletin">NewsBulletin (class in ib_insync.objects)</a>
@@ -1284,10 +1318,10 @@
 </li>
       <li><a href="api.html#ib_insync.objects.Dividends.next12Months">next12Months (ib_insync.objects.Dividends attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.Dividends.nextAmount">nextAmount (ib_insync.objects.Dividends attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.objects.Dividends.nextAmount">nextAmount (ib_insync.objects.Dividends attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.Dividends.nextDate">nextDate (ib_insync.objects.Dividends attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.ContractDetails.nextOptionDate">nextOptionDate (ib_insync.objects.ContractDetails attribute)</a>
@@ -1332,7 +1366,7 @@
         <li><a href="api.html#ib_insync.ticker.Ticker.open">(ib_insync.ticker.Ticker attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar.open_">open_ (ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.open_">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar.open_">open_ (ib_insync.objects.RealTimeBar attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.ComboLeg.openClose">openClose (ib_insync.objects.ComboLeg attribute)</a>
 
@@ -1340,6 +1374,8 @@
         <li><a href="api.html#ib_insync.order.Order.openClose">(ib_insync.order.Order attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#ib_insync.ib.IB.openOrderEvent">openOrderEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.ib.IB.openOrders">openOrders() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.openTrades">openTrades() (ib_insync.ib.IB method)</a>
@@ -1362,10 +1398,10 @@
 </li>
       <li><a href="api.html#ib_insync.order.Order">Order (class in ib_insync.order)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.order.Trade.order">order (ib_insync.order.Trade attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.objects.OrderComboLeg">OrderComboLeg (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.orderComboLegs">orderComboLegs (ib_insync.order.Order attribute)</a>
@@ -1384,6 +1420,8 @@
       </ul></li>
       <li><a href="api.html#ib_insync.order.Order.orderMiscOptions">orderMiscOptions (ib_insync.order.Order attribute)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.orderModifyEvent">orderModifyEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.Execution.orderRef">orderRef (ib_insync.objects.Execution attribute)</a>
 
       <ul>
@@ -1397,6 +1435,8 @@
       <li><a href="api.html#ib_insync.order.OrderStatus">OrderStatus (class in ib_insync.order)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Trade.orderStatus">orderStatus (ib_insync.order.Trade attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.orderStatusEvent">orderStatusEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.orderType">orderType (ib_insync.order.Order attribute)</a>
 </li>
@@ -1444,6 +1484,8 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.pendingTickers">pendingTickers() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.pendingTickersEvent">pendingTickersEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.OrderCondition.PercentChange">PercentChange (ib_insync.objects.OrderCondition attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.PercentChangeCondition">PercentChangeCondition (class in ib_insync.objects)</a>
@@ -1464,9 +1506,13 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.pnl">pnl() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.pnlEvent">pnlEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.PnLSingle">PnLSingle (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.pnlSingle">pnlSingle() (ib_insync.ib.IB method)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.pnlSingleEvent">pnlSingleEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.ibcontroller.Watchdog.port">port (ib_insync.ibcontroller.Watchdog attribute)</a>
 </li>
@@ -1488,6 +1534,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#ib_insync.ib.IB.positionEvent">positionEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.ib.IB.positions">positions() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.TickAttrib.preOpen">preOpen (ib_insync.objects.TickAttrib attribute)</a>
@@ -1600,7 +1648,7 @@
       </ul></li>
       <li><a href="api.html#ib_insync.objects.PortfolioItem.realizedPNL">realizedPNL (ib_insync.objects.PortfolioItem attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar">RealTimeBar (class in ib_insync.objects)</a>, <a href="api.html#ib_insync.objects.RealTimeBar">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar">RealTimeBar (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.RealTimeBarList">RealTimeBarList (class in ib_insync.objects)</a>
 </li>
@@ -1672,14 +1720,16 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.reqHistoricalTicks">reqHistoricalTicks() (ib_insync.ib.IB method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.ib.IB.reqHistoricalTicksAsync">reqHistoricalTicksAsync() (ib_insync.ib.IB method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.objects.BarDataList.reqId">reqId (ib_insync.objects.BarDataList attribute)</a>
 
       <ul>
         <li><a href="api.html#ib_insync.objects.RealTimeBarList.reqId">(ib_insync.objects.RealTimeBarList attribute)</a>
+</li>
+        <li><a href="api.html#ib_insync.objects.ScanDataList.reqId">(ib_insync.objects.ScanDataList attribute)</a>
 </li>
       </ul></li>
       <li><a href="api.html#ib_insync.ib.IB.reqMarketDataType">reqMarketDataType() (ib_insync.ib.IB method)</a>
@@ -1726,11 +1776,13 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.reqScannerData">reqScannerData() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.reqScannerDataAsync">reqScannerDataAsync() (ib_insync.ib.IB method)</a>
+</li>
       <li><a href="api.html#ib_insync.ib.IB.reqScannerParameters">reqScannerParameters() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.reqScannerParametersAsync">reqScannerParametersAsync() (ib_insync.ib.IB method)</a>
 </li>
-      <li><a href="api.html#ib_insync.ib.IB.reqScannerSubscriptionAsync">reqScannerSubscriptionAsync() (ib_insync.ib.IB method)</a>
+      <li><a href="api.html#ib_insync.ib.IB.reqScannerSubscription">reqScannerSubscription() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.reqSecDefOptParams">reqSecDefOptParams() (ib_insync.ib.IB method)</a>
 </li>
@@ -1804,9 +1856,17 @@
 </li>
       <li><a href="api.html#ib_insync.objects.ScanData">ScanData (class in ib_insync.objects)</a>
 </li>
+      <li><a href="api.html#ib_insync.objects.ScanDataList">ScanDataList (class in ib_insync.objects)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.scannerDataEvent">scannerDataEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.ScannerSubscription.scannerSettingPairs">scannerSettingPairs (ib_insync.objects.ScannerSubscription attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.ScannerSubscription">ScannerSubscription (class in ib_insync.objects)</a>
+</li>
+      <li><a href="api.html#ib_insync.objects.ScanDataList.scannerSubscriptionFilterOptions">scannerSubscriptionFilterOptions (ib_insync.objects.ScanDataList attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.objects.ScanDataList.scannerSubscriptionOptions">scannerSubscriptionOptions (ib_insync.objects.ScanDataList attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.schedule">schedule() (ib_insync.ib.IB static method)</a>
 
@@ -1837,8 +1897,6 @@
       <li><a href="api.html#ib_insync.client.Client.sendMsg">sendMsg() (ib_insync.client.Client method)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.DepthMktDataDescription.serviceDataType">serviceDataType (ib_insync.objects.DepthMktDataDescription attribute)</a>
-</li>
-      <li><a href="api.html#ib_insync.ib.IB.setCallback">setCallback() (ib_insync.ib.IB method)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.setTimeout">setTimeout() (ib_insync.ib.IB method)</a>
 </li>
@@ -1996,6 +2054,8 @@
 </li>
       <li><a href="api.html#ib_insync.order.OrderStatus.Submitted">Submitted (ib_insync.order.OrderStatus attribute)</a>
 </li>
+      <li><a href="api.html#ib_insync.objects.ScanDataList.subscription">subscription (ib_insync.objects.ScanDataList attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.objects.ContractDetails.summary">summary (ib_insync.objects.ContractDetails attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.order.Order.sweepToFill">sweepToFill (ib_insync.order.Order attribute)</a>
@@ -2006,8 +2066,6 @@
         <li><a href="api.html#ib_insync.objects.ExecutionFilter.symbol">(ib_insync.objects.ExecutionFilter attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#ib_insync.util.syncAwait">syncAwait() (in module ib_insync.util)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -2056,6 +2114,8 @@
 </li>
       <li><a href="api.html#ib_insync.ib.IB.tickers">tickers() (ib_insync.ib.IB method)</a>
 </li>
+      <li><a href="api.html#ib_insync.ib.IB.tickNewsEvent">tickNewsEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.ticker.Ticker.ticks">ticks (ib_insync.ticker.Ticker attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.TickByTickAllLast.tickType">tickType (ib_insync.objects.TickByTickAllLast attribute)</a>
@@ -2086,7 +2146,7 @@
       </ul></li>
       <li><a href="api.html#ib_insync.objects.OrderCondition.Time">Time (ib_insync.objects.OrderCondition attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar.time">time (ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.time">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar.time">time (ib_insync.objects.RealTimeBar attribute)</a>
 
       <ul>
         <li><a href="api.html#ib_insync.objects.TickByTickAllLast.time">(ib_insync.objects.TickByTickAllLast attribute)</a>
@@ -2107,6 +2167,8 @@
       <li><a href="api.html#ib_insync.objects.TimeCondition">TimeCondition (class in ib_insync.objects)</a>
 </li>
       <li><a href="api.html#ib_insync.util.timeit">timeit (class in ib_insync.util)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.timeoutEvent">timeoutEvent (ib_insync.ib.IB attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.timeRange">timeRange() (ib_insync.ib.IB static method)</a>
 
@@ -2200,18 +2262,24 @@
         <li><a href="api.html#ib_insync.objects.PnLSingle.unrealizedPnL">(ib_insync.objects.PnLSingle attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.objects.PortfolioItem.unrealizedPNL">unrealizedPNL (ib_insync.objects.PortfolioItem attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.objects.Object.update">update() (ib_insync.objects.Object method)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.BarList.updateEvent">updateEvent (ib_insync.objects.BarList attribute)</a>
+      <li><a href="api.html#ib_insync.ib.IB.updateEvent">updateEvent (ib_insync.ib.IB attribute)</a>
 
       <ul>
+        <li><a href="api.html#ib_insync.objects.BarList.updateEvent">(ib_insync.objects.BarList attribute)</a>
+</li>
+        <li><a href="api.html#ib_insync.objects.ScanDataList.updateEvent">(ib_insync.objects.ScanDataList attribute)</a>
+</li>
         <li><a href="api.html#ib_insync.ticker.Ticker.updateEvent">(ib_insync.ticker.Ticker attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#ib_insync.ib.IB.updatePortfolioEvent">updatePortfolioEvent (ib_insync.ib.IB attribute)</a>
+</li>
       <li><a href="api.html#ib_insync.util.useQt">useQt() (in module ib_insync.util)</a>
 </li>
       <li><a href="api.html#ib_insync.ibcontroller.IBC.userid">userid (ib_insync.ibcontroller.IBC attribute)</a>
@@ -2266,7 +2334,7 @@
 </li>
       <li><a href="api.html#ib_insync.objects.OrderCondition.Volume">Volume (ib_insync.objects.OrderCondition attribute)</a>
 </li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar.volume">volume (ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.volume">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar.volume">volume (ib_insync.objects.RealTimeBar attribute)</a>
 
       <ul>
         <li><a href="api.html#ib_insync.ticker.Ticker.volume">(ib_insync.ticker.Ticker attribute)</a>
@@ -2290,16 +2358,16 @@
         <li><a href="api.html#ib_insync.util.waitUntil">(in module ib_insync.util)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#ib_insync.objects.RealTimeBar.wap">wap (ib_insync.objects.RealTimeBar attribute)</a>, <a href="api.html#ib_insync.objects.RealTimeBar.wap">[1]</a>
+      <li><a href="api.html#ib_insync.objects.RealTimeBar.wap">wap (ib_insync.objects.RealTimeBar attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.objects.OrderState.warningText">warningText (ib_insync.objects.OrderState attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.contract.Warrant">Warrant (class in ib_insync.contract)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.ibcontroller.Watchdog">Watchdog (class in ib_insync.ibcontroller)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#ib_insync.order.Order.whatIf">whatIf (ib_insync.order.Order attribute)</a>
 </li>
       <li><a href="api.html#ib_insync.ib.IB.whatIfOrder">whatIfOrder() (ib_insync.ib.IB method)</a>
@@ -2313,6 +2381,8 @@
 </li>
       </ul></li>
       <li><a href="api.html#ib_insync.order.OrderStatus.whyHeld">whyHeld (ib_insync.order.OrderStatus attribute)</a>
+</li>
+      <li><a href="api.html#ib_insync.ib.IB.wrapper">wrapper (ib_insync.ib.IB attribute)</a>
 </li>
   </ul></td>
 </tr></table>

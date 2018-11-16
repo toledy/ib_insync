@@ -18,59 +18,47 @@ class IBC(Object):
     Programmatic control over starting and stopping TWS/Gateway
     using IBC (https://github.com/IbcAlpha/IBC).
 
+    Args:
+
+        twsVersion (int): (required) The major version number for
+            TWS or gateway.
+        gateway (bool):
+            * True = gateway
+            * False = TWS
+        tradingMode (str): 'live' or 'paper'.
+        userid (str): IB account username. It is recommended to set the real
+            username/password in a secured IBC config file.
+        password (str): IB account password.
+        twsPath (str): Path to the TWS installation folder.
+            Defaults:
+
+            * Linux:    ~/Jts
+            * OS X:     ~/Applications
+            * Windows:  C:\\\\Jts
+        twsSettingsPath (str): Path to the TWS settings folder.
+            Defaults:
+
+            * Linux:     ~/Jts
+            * OS X:      ~/Jts
+            * Windows:   Not available
+        ibcPath (str): Path to the IBC installation folder.
+            Defaults:
+
+            * Linux:     /opt/ibc
+            * OS X:      /opt/ibc
+            * Windows:   C:\\\\IBC
+        ibcIni (str): Path to the IBC configuration file.
+            Defaults:
+
+            * Linux:     ~/ibc/config.ini
+            * OS X:      ~/ibc/config.ini
+            * Windows:   %%HOMEPATH%%\\\\Documents\\\\IBC\\\\config.ini
+        javaPath (str): Path to Java executable.
+            Default is to use the Java VM included with TWS/gateway.
+        fixuserid (str): FIX account user id (gateway only).
+        fixpassword (str): FIX account password (gateway only).
+
     This is not intended to be run in a notebook.
-
-    Arguments:
-
-    * ``twsVersion`` (required): The major version number for TWS or gateway.
-    * ``tradingMode``: 'live' or 'paper'.
-    * ``userid``: IB account username. It is recommended to set the real
-      username/password in a secured IBC config file.
-    * ``password``: IB account password.
-    * ``twsPath``: Path to the TWS installation folder.
-
-      =======  ==============
-      Default
-      =======================
-      Linux    ~/Jts
-      OS X     ~/Applications
-      Windows  C:\\\\Jts
-      =======  ==============
-
-    * ``twsSettingsPath``: Path to the TWS settings folder.
-
-      ========  =============
-      Default
-      =======================
-      Linux     ~/Jts
-      OS X      ~/Jts
-      Windows   Not available
-      ========  =============
-
-    * ``ibcPath``: Path to the IBC installation folder.
-
-      ========  =============
-      Default
-      =======================
-      Linux     /opt/ibc
-      OS X      /opt/ibc
-      Windows   C:\\\\IBC
-      ========  =============
-
-    * ``ibcIni``: Path to the IBC configuration file.
-
-      ========  =============
-      Default
-      =======================
-      Linux     ~/ibc/config.ini
-      OS X      ~/ibc/config.ini
-      Windows   %%HOMEPATH%%\\\\Documents\\\\IBC\\\\config.ini
-      ========  =============
-
-    * ``javaPath``: Path to Java executable.
-      Default is to use the Java VM included with TWS/gateway.
-    * ``fixuserid``: FIX account user id (gateway only).
-    * ``fixpassword``: FIX account password (gateway only).
 
     To use IBC on Windows, the proactor (or quamash) event loop
     must have been set:
@@ -85,7 +73,7 @@ class IBC(Object):
     .. code-block:: python
 
         ibc = IBC(969, gateway=True, tradingMode='live',
-                userid='edemo', password='demouser')
+            userid='edemo', password='demouser')
         ibc.start()
         IB.run()
     """
@@ -130,13 +118,13 @@ class IBC(Object):
         """
         Launch TWS/IBG.
         """
-        util.syncAwait(self.startAsync())
+        util.run(self.startAsync())
 
     def terminate(self):
         """
         Terminate TWS/IBG.
         """
-        util.syncAwait(self.terminateAsync())
+        util.run(self.terminateAsync())
 
     async def startAsync(self):
         if self._proc:
@@ -230,19 +218,19 @@ class IBController(Object):
         """
         Launch TWS/IBG.
         """
-        util.syncAwait(self.startAsync())
+        util.run(self.startAsync())
 
     def stop(self):
         """
         Cleanly shutdown TWS/IBG.
         """
-        util.syncAwait(self.stopAsync())
+        util.run(self.stopAsync())
 
     def terminate(self):
         """
         Terminate TWS/IBG.
         """
-        util.syncAwait(self.terminateAsync())
+        util.run(self.terminateAsync())
 
     async def startAsync(self):
         if self._proc:
@@ -310,24 +298,26 @@ class Watchdog(Object):
     Start, connect and watch over the TWS or gateway app and try to keep it
     up and running.
 
+    Args:
+        controller (Union[IBC, IBController]): (required) IBC or IBController
+            instance.
+        ib (IB): (required) IB instance to be used. Do no connect this
+            instance as Watchdog takes care of that.
+        host (str): Used for connecting IB instance.
+        port (int):  Used for connecting IB instance.
+        clientId (int):  Used for connecting IB instance.
+        connectTimeout (float):  Used for connecting IB instance.
+        appStartupTime (float): Time (in seconds) that the app is given
+            to start up. Make sure that it is given ample time.
+        appTimeout (float): Timeout (in seconds) for network traffic idle time.
+        retryDelay (float): Time (in seconds) to restart app after a
+            previous failure.
+
     The idea is to wait until there is no traffic coming from the app for
     a certain amount of time (the ``appTimeout`` parameter). This triggers
     a historical request to be placed just to see if the app is still alive
     and well. If yes, then continue, if no then restart the whole app
     and reconnect. Restarting will also occur directly on error 1100.
-
-    Arguments:
-
-    * ``controller`` (required): IBC or IBController instance;
-    * ``ib`` (required): IB instance to be used. Do no connect this
-      instance as Watchdog takes care of that.
-    * ``host``, ``port``, ``clientId`` and ``connectTimeout``: Used for
-      connecting to the app;
-    * ``appStartupTime``: Time (in seconds) that the app is given to start up;
-      Make sure that it is given ample time;
-    * ``appTimeout``: Timeout (in seconds) for network traffic idle time;
-    * ``retryDelay``: Time (in seconds) to restart app after a
-      previous failure;
 
     Note: ``util.patchAsyncio()`` must have been called before.
 
@@ -347,12 +337,12 @@ class Watchdog(Object):
         IB.run()
 
     Events:
-        * ``startingEvent(watchdog)``
-        * ``startedEvent(watchdog)``
-        * ``stoppingEvent(watchdog)``
-        * ``stoppedEvent(watchdog)``
-        * ``softTimeoutEvent(watchdog)``
-        * ``hardTimeoutEvent(watchdog)``
+        * ``startingEvent`` (watchdog: :class:`.Watchdog`)
+        * ``startedEvent`` (watchdog: :class:`.Watchdog`)
+        * ``stoppingEvent`` (watchdog: :class:`.Watchdog`)
+        * ``stoppedEvent`` (watchdog: :class:`.Watchdog`)
+        * ``softTimeoutEvent`` (watchdog: :class:`.Watchdog`)
+        * ``hardTimeoutEvent`` (watchdog: :class:`.Watchdog`)
     """
 
     events = [
@@ -401,7 +391,8 @@ class Watchdog(Object):
             self._connect()
             self.ib.setTimeout(self.appTimeout)
             self.startedEvent.emit(self)
-        except Exception:
+        except Exception as e:
+            self._logger.exception(e)
             self.controller.terminate()
             self._scheduleRestart()
 

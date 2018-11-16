@@ -62,9 +62,9 @@ class Client(EClient):
       one batch instead of item by item.
 
     * Events:
-        * ``apiStart()``
-        * ``apiEnd()``
-        * ``apiError(errorMsg)``
+        * ``apiStart`` ()
+        * ``apiEnd`` ()
+        * ``apiError`` (errorMsg: str)
     """
 
     events = ('apiStart', 'apiEnd', 'apiError')
@@ -72,6 +72,8 @@ class Client(EClient):
     # throttle number of requests to MaxRequests per RequestsInterval seconds
     MaxRequests = 100
     RequestsInterval = 2
+
+    MaxClientVersion = 142
 
     def __init__(self, wrapper):
         self._readyEvent = asyncio.Event()
@@ -114,10 +116,10 @@ class Client(EClient):
         if not self.isReady():
             raise ConnectionError('Not connected')
         return ConnectionStats(
-                self._startTime,
-                time.time() - self._startTime,
-                self._numBytesRecv, self.conn.numBytesSent,
-                self._numMsgRecv, self.conn.numMsgSent)
+            self._startTime,
+            time.time() - self._startTime,
+            self._numBytesRecv, self.conn.numBytesSent,
+            self._numMsgRecv, self.conn.numMsgSent)
 
     def getReqId(self) -> int:
         """
@@ -137,16 +139,20 @@ class Client(EClient):
             raise ConnectionError('Not connected')
         return self._accounts
 
-    def connect(self, host, port, clientId, timeout=2):
+    def connect(self, host: str, port: int, clientId: int, timeout: float = 2):
         """
-        Connect to TWS/IBG at given host and port and with a clientId
-        that is not in use elsewhere.
+        Connect to a running TWS or IB gateway application.
 
-        When timeout is not zero, asyncio.TimeoutError
-        is raised if the connection is not established
-        within the timeout period.
+        Args:
+            host: Host name or IP address.
+            port: Port number.
+            clientId: ID number to use for this client; must be unique per
+                connection.
+            timeout: If establishing the connection takes longer than
+                ``timeout`` seconds then the ``asyncio.TimeoutError`` exception
+                is raised. Set to 0 to disable timeout.
         """
-        util.syncAwait(self.connectAsync(host, port, clientId, timeout))
+        util.run(self.connectAsync(host, port, clientId, timeout))
 
     async def connectAsync(self, host, port, clientId, timeout=2):
         self._logger.info(
@@ -164,15 +170,16 @@ class Client(EClient):
             fut = asyncio.gather(self.conn.connect(), self._readyEvent.wait())
             await asyncio.wait_for(fut, timeout)
             self._logger.info('API connection ready')
-            self.apiStart()
+            self.apiStart.emit()
         except Exception as e:
             self.reset()
             msg = f'API connection failed: {e!r}'
             self._logger.error(msg)
-            self.apiError(msg)
+            self.apiError.emit(msg)
             if isinstance(e, ConnectionRefusedError):
                 msg = 'Make sure API port on TWS/IBG is open'
                 self._logger.error(msg)
+            await fut  # consume exception
             raise
 
     def sendMsg(self, msg):
@@ -208,7 +215,9 @@ class Client(EClient):
         self._logger.info('Connected')
         # start handshake
         msg = b'API\0'
-        versionRange = (100, 142)
+        versionRange = (
+            ibapi.server_versions.MIN_CLIENT_VER,
+            min(self.MaxClientVersion, ibapi.server_versions.MAX_CLIENT_VER))
         msg += self._prefix(b'v%d..%d' % versionRange)
         self.conn.sendMsg(msg)
         self.decoder = ibapi.decoder.Decoder(self.wrapper, None)
@@ -248,7 +257,7 @@ class Client(EClient):
                 self.startApi()
                 self.wrapper.connectAck()
                 self._logger.info(
-                        f'Logged on to server version {self.serverVersion_}')
+                    f'Logged on to server version {self.serverVersion_}')
             else:
                 # decode and handle the message
                 try:
@@ -266,16 +275,16 @@ class Client(EClient):
             if not self.isReady():
                 msg = f'clientId {self.clientId} already in use?'
                 self._logger.error(msg)
-            self.apiError(msg)
+            self.apiError.emit(msg)
         else:
             self._logger.info('Disconnected')
         self.reset()
-        self.apiEnd()
+        self.apiEnd.emit()
 
     def _onSocketHasError(self, msg):
         self._logger.error(msg)
         self.reset()
-        self.apiError(msg)
+        self.apiError.emit(msg)
 
     def _encode(self, *fields):
         """
@@ -289,12 +298,12 @@ class Client(EClient):
             elif isinstance(field, Contract):
                 c = field
                 s = '\0'.join(str(f) for f in (
-                        c.conId, c.symbol, c.secType,
-                        c.lastTradeDateOrContractMonth, c.strike,
-                        c.right, c.multiplier, c.exchange,
-                        c.primaryExchange, c.currency,
-                        c.localSymbol, c.tradingClass,
-                        1 if c.includeExpired else 0))
+                    c.conId, c.symbol, c.secType,
+                    c.lastTradeDateOrContractMonth, c.strike,
+                    c.right, c.multiplier, c.exchange,
+                    c.primaryExchange, c.currency,
+                    c.localSymbol, c.tradingClass,
+                    1 if c.includeExpired else 0))
             elif type(field) is list:
                 # list of TagValue
                 s = ''.join(f'{v.tag}={v.value};' for v in field)
@@ -318,25 +327,26 @@ class Client(EClient):
         if msgId == 2:
             _, _, reqId, tickType, size = fields
             self.wrapper.tickSize(
-                    int(reqId), int(tickType), int(size))
+                int(reqId), int(tickType), int(size))
             return
         elif msgId == 1:
             if self._priceSizeTick:
                 _, _, reqId, tickType, price, size, _ = fields
-                self._priceSizeTick(
+                if price:
+                    self._priceSizeTick(
                         int(reqId), int(tickType),
                         float(price), int(size))
                 return
         elif msgId == 12:
             _, _, reqId, position, operation, side, price, size = fields
             self.wrapper.updateMktDepth(
-                    int(reqId), int(position),
-                    int(operation), int(side), float(price), int(size))
+                int(reqId), int(position),
+                int(operation), int(side), float(price), int(size))
             return
         elif msgId == 46:
             _, _, reqId, tickType, value = fields
             self.wrapper.tickString(
-                    int(reqId), int(tickType), value.decode())
+                int(reqId), int(tickType), value.decode())
             return
 
         # snoop for nextValidId and managedAccounts response,
@@ -380,8 +390,8 @@ class Connection:
 
     def connect(self):
         loop = asyncio.get_event_loop()
-        coro = loop.create_connection(lambda: Socket(self),
-                                      self.host, self.port)
+        coro = loop.create_connection(
+            lambda: Socket(self), self.host, self.port)
         future = asyncio.ensure_future(coro)
         future.add_done_callback(self._onConnectionCreated)
         return future

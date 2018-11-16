@@ -19,14 +19,14 @@ from ib_insync.event import Event
 __all__ = (
     'Object ContractDetails ContractDescription '
     'ComboLeg UnderComp DeltaNeutralContract OrderComboLeg OrderState '
-    'ScannerSubscription SoftDollarTier PriceIncrement '
-    'Execution CommissionReport ExecutionFilter '
+    'SoftDollarTier PriceIncrement Execution CommissionReport ExecutionFilter '
     'BarList BarDataList RealTimeBarList BarData RealTimeBar '
     'HistogramData TickAttrib NewsProvider DepthMktDataDescription '
-    'PnL PnLSingle AccountValue RealTimeBar TickData '
+    'ScannerSubscription ScanData ScanDataList '
+    'PnL PnLSingle AccountValue TickData '
     'TickByTickAllLast TickByTickBidAsk TickByTickMidPoint '
     'HistoricalTick HistoricalTickBidAsk HistoricalTickLast '
-    'MktDepthData DOMLevel BracketOrder TradeLogEntry ScanData TagValue '
+    'MktDepthData DOMLevel BracketOrder TradeLogEntry TagValue '
     'PortfolioItem Position Fill OptionComputation OptionChain Dividends '
     'NewsArticle HistoricalNews NewsTick NewsBulletin ConnectionStats '
     'OrderCondition ExecutionCondition OperatorCondition MarginCondition '
@@ -47,7 +47,7 @@ class Object:
     * A default equality testing that compares attributes.
     """
     __slots__ = ()
-    defaults = {}
+    defaults: dict = {}
 
     def __init__(self, *args, **kwargs):
         """
@@ -62,7 +62,7 @@ class Object:
             setattr(self, k, v)
 
     def __repr__(self):
-        clsName = self.__class__.__name__
+        clsName = self.__class__.__qualname__
         kwargs = ', '.join(f'{k}={v!r}' for k, v in self.nonDefaults().items())
         return f'{clsName}({kwargs})'
 
@@ -256,8 +256,7 @@ class PnLSingle(Object):
 
 class BarList(list):
     """
-    Events:
-        * ``updateEvent(bars, hasNewBar)``
+    Base class for bar lists.
     """
     events = ('updateEvent',)
 
@@ -275,6 +274,14 @@ class BarList(list):
 
 
 class BarDataList(BarList):
+    """
+    List of :class:`.BarData` that also stores all request parameters.
+
+    Events:
+
+        * ``updateEvent``
+          (bars: :class:`.BarDataList`, hasNewBar: bool)
+    """
     __slots__ = (
         'reqId', 'contract', 'endDateTime', 'durationStr',
         'barSizeSetting', 'whatToShow', 'useRTH', 'formatDate',
@@ -282,9 +289,41 @@ class BarDataList(BarList):
 
 
 class RealTimeBarList(BarList):
+    """
+    List of :class:`.RealTimeBar` that also stores all request parameters.
+
+    Events:
+
+        * ``updateEvent``
+          (bars: :class:`.RealTimeBarList`, hasNewBar: bool)
+    """
     __slots__ = (
         'reqId', 'contract', 'barSize', 'whatToShow', 'useRTH',
         'realTimeBarsOptions')
+
+
+class ScanDataList(list):
+    """
+    List of :class:`.ScanData` that also stores all request parameters.
+
+    Events:
+        * ``updateEvent`` (:class:`.ScanDataList`)
+    """
+    events = ('updateEvent',)
+
+    __slots__ = events + (
+        'reqId', 'subscription', 'scannerSubscriptionOptions',
+        'scannerSubscriptionFilterOptions')
+
+    def __init__(self, *args):
+        list.__init__(self, *args)
+        Event.init(self, ScanDataList.events)
+
+    def __eq__(self, other):
+        return self is other
+
+    def __hash__(self):
+        return id(self)
 
 
 AccountValue = namedtuple(

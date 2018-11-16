@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Contents &#8212; IB-insync 0.9.30 documentation</title>
+    <title>Contents &#8212; IB-insync 0.9.34 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -114,7 +114,14 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="recipes.html">Code recipes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="recipes.html#fetching-consecutive-historical-data">Fetching consecutive historical data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="recipes.html#integration-with-pyqt5">Integration with PyQt5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#scanner-data-blocking">Scanner data (blocking)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#scanner-data-streaming">Scanner data (streaming)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#option-calculations">Option calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#order-book">Order book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#minimum-price-increments">Minimum price increments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#news-articles">News articles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#news-bulletins">News bulletins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#integration-with-pyqt5-or-pyside2">Integration with PyQt5 or PySide2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Source code</a><ul>
@@ -156,7 +163,9 @@ for advanced users;</li>
 <p>Requirements:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.python.org">Python</a> version 3.6 or higher;</li>
-<li>The <a class="reference external" href="http://interactivebrokers.github.io">Interactive Brokers Python API</a> version 9.73.06 or higher;</li>
+<li>The <a class="reference external" href="http://interactivebrokers.github.io">Interactive Brokers Python API</a> version 9.73.06 or higher. If using
+Python 3.7, then comment out line 60 of ibapi/client.py that reads
+<code class="docutils literal notranslate"><span class="pre">self.async</span> <span class="pre">=</span> <span class="pre">False</span></code>.</li>
 <li>A running TWS or IB gateway application (version 969 or higher).
 Make sure the
 <a class="reference external" href="https://interactivebrokers.github.io/tws-api/initial_setup.html">API port is enabled</a>
@@ -202,7 +211,8 @@ too.</p>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="http://rawgit.com/erdewit/ib_insync/master/docs/html/api.html">API docs</a></p>
+<p>The complete <a class="reference external" href="http://rawgit.com/erdewit/ib_insync/master/docs/html/api.html">API documentation</a>.</p>
+<p><a class="reference external" href="http://rawgit.com/erdewit/ib_insync/master/docs/html/changelog.html">Changelog</a>.</p>
 </div>
 <div class="section" id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
